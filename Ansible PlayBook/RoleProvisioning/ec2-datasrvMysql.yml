@@ -1,0 +1,42 @@
+
+
+- hosts: database
+  become: true
+  vars:
+    root_db_password: JdR0oT209
+
+  tasks:
+
+  - name: Install Database MySQL
+    yum: pkg=mysql-server,mysql-devel,gcc state=latest
+
+  - name: install mysql-python
+    pip: name=MySQL-python
+
+  - name: Enable Mysql on system reboot
+    service: name=mysqld state=started enabled=yes
+
+  - name: Root password is Here
+    mysql_user: name=root host={{item}} password={{root_db_password}} login_user=root login_password:{{root_db_password}} check_implicit_admin=yes state=present
+    with_items:
+     - ::1
+     - 127.0.0.1
+     - localhost
+
+  - name: Remove test database
+    mysql_db: 
+      name: test 
+      state: absent
+      login_user: root
+      login_password: "{{root_db_password}}" 
+  
+
+  - name: Remove anonymous users 
+    mysql_user:
+      name: '' 
+      host_all: yes 
+      state: absent
+      login_password: "{{root_db_password}}"
+
+
+

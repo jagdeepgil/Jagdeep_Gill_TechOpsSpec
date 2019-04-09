@@ -1,0 +1,25 @@
+- hosts: webserver
+  become: true
+  vars:
+    project_root: /var/www/html
+  tasks:  
+
+  - name: Install Apache Webserver
+    yum: pkg=httpd state=latest
+
+  - name: Enable Apache on system reboot
+    service: name=httpd enabled=yes
+    notify: restart apache  
+
+  - name: Synchronization from control machine to prod web server
+    synchronize:
+       src: /var/www/html/
+       dest: /var/www/html/
+
+  - name: Install PHP and modules
+    yum: name=mod_ssl,php,php-mysqlnd,php-pdo state=latest
+
+  handlers:
+  - name: restart apache
+    service: name=httpd state=restarted
+

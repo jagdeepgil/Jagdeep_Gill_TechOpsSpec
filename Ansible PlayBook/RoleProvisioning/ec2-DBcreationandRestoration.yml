@@ -1,0 +1,40 @@
+- hosts: database
+  become: true
+  vars:
+    root_db_password: JdR0oT209
+
+  tasks:
+
+
+  - name: Create a new database with name 'webapp'
+    mysql_db:
+     name: webapp
+     state: present
+     login_user: root
+     login_password: "{{root_db_password}}"
+
+  - name: Create 
+    mysql_user:
+     name: webdbuser
+     password: w3bDbu$3r
+     host: '%'
+     priv: 'webapp.*:ALL'
+     state: present
+     login_user: root
+     login_password: "{{root_db_password}}"
+
+  - name: Copy database dump file to the Prod DB
+    copy:
+     src: /root/RoleProvisioning/webap.sql
+     dest: /tmp
+
+  - name: Restore database
+    mysql_db:
+     name: webapp
+     state: import
+     target: /tmp/webap.sql
+     login_user: root
+     login_password: "{{root_db_password}}"
+
+
+

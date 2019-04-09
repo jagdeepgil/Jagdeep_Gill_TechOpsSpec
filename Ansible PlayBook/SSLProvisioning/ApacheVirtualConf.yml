@@ -1,0 +1,19 @@
+- hosts: webserver
+  become: true
+  tasks:
+   - name: Copy custom conf file
+     copy: src=/root/SSLProvisioning/custom-webapp.conf dest=/etc/httpd/conf.d/custom-webapp.conf
+   - name: Copy ssl certificate
+     copy: src=/root/SSLProvisioning/Certificate/webappssl.crt dest=/etc/ssl/certs/webappssl.crt owner=root group=root mode=0644
+   - name: Copy ssl ca certificate
+     copy: src=/root/SSLProvisioning/Certificate/webappssl-ca.crt dest=/etc/ssl/certs/webappssl-ca.crt owner=root group=root mode=0644
+   - name: Copy private key
+     copy: src=/root/SSLProvisioning/Certificate/webappprivatekey.key dest=/etc/pki/tls/private/webappprivatekey.key owner=root group=root mode=0600
+   - name: Hide Apache Server Token    
+     lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="^ServerTokens OS" line="ServerTokens Prod"
+   - name: Hide Apache Server Signature
+     lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="^ServerSignature On" line="ServerSignature Off"
+
+
+   - name: restart Httpd
+     service: name=httpd state=restarted
