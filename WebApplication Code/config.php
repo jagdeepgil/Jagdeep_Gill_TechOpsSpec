@@ -14,9 +14,9 @@ $conn = mysql_connect("localhost","root","root")
  */
  
 $databaseHost = 'IP address of your database server';
-$databaseUsername = 'webdbuser';
-$databasePassword = 'w3bDbu$3r';
-$databaseName = 'webapp';
+$databaseUsername = 'DB UserName';
+$databasePassword = 'DB Password';
+$databaseName = 'DB Name';
 
  
 $mysqli = mysqli_connect($databaseHost, $databaseUsername, $databasePassword, $databaseName); 

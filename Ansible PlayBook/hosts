@@ -1,0 +1,8 @@
+[local]
+localhost
+
+[webserver]
+X.X.X.X ansible_ssh_user=ec2-user
+
+[database]
+X.X.X.X ansible_ssh_user=ec2-user
