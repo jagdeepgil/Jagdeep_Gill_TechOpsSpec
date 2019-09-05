@@ -25,7 +25,7 @@ want to have access to these servers, then you need to login into “108.170.41.
     -> SQL Data restoration 
  
  
-=> The Web server is capable of Scaling Horizontally and Vertically
+=> The Web server is capable of Horizontally and Vertically Scaling 
 
 
 Note: The credentials and secret Keys are removed due to the security reason 
