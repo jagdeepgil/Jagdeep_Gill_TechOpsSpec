@@ -14,15 +14,16 @@ want to have access to these servers, then you need to login into “108.170.41.
 
 
 => The following things are automized using Playbook 
-			o  Deployment of Servers and assigned Elastic IP address
-			o  Secured access of Web and Database server using Security Group
-			o  Apache installation and Hardening 
-			o  SSL installation and auto redirection from HTTP to HTTPS
-			o  Database installation and Hardening
-			o  Web Data restoration 
-			o  Create Database, user and password
-			o  SQL Data restoration 
-      o  The Web server is capable of Scaling Horizontally and Vertically
+
+    -> Deployment of Servers and assigned Elastic IP address
+    -> Secured access of Web and Database server using Security Group
+    -> Apache installation and Hardening 
+    -> SSL installation and auto redirection from HTTP to HTTPS
+    -> Database installation and Hardening
+    -> Web Data restoration 
+    -> Create Database, user and password
+    -> SQL Data restoration 
+    -> The Web server is capable of Scaling Horizontally and Vertically
 
 
 Note: The credentials and secret Keys are removed due to the security reason 
