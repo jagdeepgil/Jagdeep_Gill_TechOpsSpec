@@ -3,7 +3,7 @@
 - hosts: database
   become: true
   vars:
-    root_db_password: PASSWORD-OF-ROOT-USER
+    root_db_password: # password removed due to security reason
 
   tasks:
 

@@ -6,13 +6,13 @@
     tags: provisioning
     # Necessary Variables for creating/provisioning the EC2 Instance
     vars:
-      AWS_ACCESS_KEY: "ADD YOUR ACCESS KEY - GET IT FROM YOUR AWS ACCOUNT" 
-      AWS_SECRET_KEY: "ADD YOUR SECRET KEY - GET IT FROM YOUR AWS ACCOUNT"      
+      AWS_ACCESS_KEY: # Removed due to security reason 
+      AWS_SECRET_KEY: # Removed due to security reason     
       instance_type: t2.micro
-      security_group: Ansible-databaseerverdemo 
+      security_group: Ansible-WebServerDemo 
       image: ami-0cd3dfa4e37921605 
-      keypair: ansible-webserver-demo # This is one of my keys that i already have in AWS
-      region: us-east-2 # Change the Region
+      keypair: ansible-webserver-demo # AWS Key
+      region: us-east-2 # Region
       count: 1
 
     # Task that will be used to Launch/Create an EC2 Instance
@@ -22,17 +22,21 @@
         local_action: 
           module: ec2_group
           name: "{{ security_group }}"
-          description: Security Group for database Server
+          description: Security Group for Webserver Servers
           region: "{{ region }}"
           rules:
             - proto: tcp
               from_port: 22
               to_port: 22
-              cidr_ip: X.X.X.X/32        # SSH access restricted to the trusted IP address  (add your ip address)
+              cidr_ip: 108.170.41.76/32
             - proto: tcp
-              from_port: 3306
-              to_port: 3306
-              cidr_ip: X.X.X.X/32        # MySQL access restricted to the trusted IP address  (add your ip address)
+              from_port: 80
+              to_port: 80
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 443
+              to_port: 443
+              cidr_ip: 0.0.0.0/0
           rules_egress:
             - proto: all
               cidr_ip: 0.0.0.0/0
@@ -60,4 +64,4 @@
         with_items: "{{ ec2.instances }}"
         args:
           tags:
-            Name: Database
+            Name: Webserver
